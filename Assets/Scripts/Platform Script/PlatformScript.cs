@@ -23,15 +23,20 @@ public class PlatformScript : MonoBehaviour{
         Move();
     }
 
+    // Vector2 nilai;
+
     void Move(){
 
         Vector2 temp = transform.position;
         temp.y += moveSpeed * Time.deltaTime;
         transform.position = temp;
 
-        if(temp.y >= boundY){
-            gameObject.SetActive(false);
-        }
+        // nilai.y += Time.deltaTime;
+        // Debug.Log(nilai);
+
+        // if(temp.y >= boundY){
+        //     gameObject.SetActive(false);
+        // }
 
     }
 
