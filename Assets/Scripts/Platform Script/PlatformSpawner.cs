@@ -9,7 +9,7 @@ public class PlatformSpawner : MonoBehaviour
     public GameObject[] movingPlatform;
     public GameObject breakablePlatform;
     
-    public float platform_Spawn_Initial_Timer = 1.8f;
+    public float platform_Spawn_Initial_Timer = 1f;
     public float current_Platform_Spawn_Timer;
     public int platform_Count = 0;
     public float min_X = -2f, max_X = 2f; 
@@ -29,6 +29,7 @@ public class PlatformSpawner : MonoBehaviour
         if(current_Platform_Spawn_Timer >= platform_Spawn_Initial_Timer){
 
             Vector3 temp = transform.position;
+
             temp.x = Random.Range(min_X, max_X);
 
             platform_Count++;
@@ -79,7 +80,7 @@ public class PlatformSpawner : MonoBehaviour
 
             } 
 
-            if (newPlatform != null){
+            if (newPlatform){
 
                 newPlatform.transform.parent = transform;
             
