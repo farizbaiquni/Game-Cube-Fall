@@ -11,6 +11,8 @@ public class PlatformScript : MonoBehaviour{
 
     private Animator anim;
 
+    public GameObject player;
+
     void Awake(){
         
         if(isBreakable){
@@ -50,11 +52,14 @@ public class PlatformScript : MonoBehaviour{
     void OnTriggerEnter2D(Collider2D target) {
         if(target.tag == "Player"){
             if(isSpike){
-                target.transform.position = new Vector2(1000f, 1000f);
+
+                HealthScript.instance.decreaseHealth();
+
+                PlayerBounds.instance.MovePlayerUp();
 
                 SoundManager.instance.GameOverSound();
 
-                GameManager.instance.RestateGame();
+                // GameManager.instance.RestateGame();
             }
         }
     } // void OnTriggerEnter2D
@@ -71,6 +76,7 @@ public class PlatformScript : MonoBehaviour{
             if(isPlatform){
                 SoundManager.instance.LandSound();
             }
+
         }
     }
 

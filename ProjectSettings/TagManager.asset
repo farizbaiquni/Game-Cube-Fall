@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - TopSpike
+  - Heart
+  - BatasBawah
+  - CubeVisible
+  - CubeInvisible
   layers:
   - Default
   - TransparentFX

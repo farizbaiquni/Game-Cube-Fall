@@ -5,14 +5,22 @@ using UnityEngine;
 public class PlayerBounds : MonoBehaviour
 {
     public float min_X = -2.6f, max_X = 2.6f, min_y = -5.38f;
+
     bool out_Of_Bound;
-    // Start is called before the first frame update
-    void Start(){
-        
+
+    public static PlayerBounds instance;
+
+    void Awake(){
+
+        if(instance == null){
+            instance = this;
+        }
+
     }
 
     // Update is called once per frame
     void Update(){
+
         ChecKBound();
     }
 
@@ -37,7 +45,7 @@ public class PlayerBounds : MonoBehaviour
 
                 SoundManager.instance.deathSound();
 
-                GameManager.instance.RestateGame();
+                // GameManager.instance.RestateGame();
 
             
             }
@@ -47,12 +55,46 @@ public class PlayerBounds : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D target) {
         if(target.tag == "TopSpike"){
-            transform.position = new Vector2(100f, 100f);
+
+            MovePlayerUp();
+
+            // GetComponent<SpriteRenderer>().color = new Color (255, 255, 255, 0);
+
+            HealthScript.instance.decreaseHealth();
 
             SoundManager.instance.deathSound();
 
-            GameManager.instance.RestateGame();
+            // GameManager.instance.RestateGame();
         }
+
+        if(target.tag == "BatasBawah"){
+
+            MovePlayerUp();
+
+            HealthScript.instance.decreaseHealth();
+
+            SoundManager.instance.deathSound();
+
+            // GameManager.instance.RestateGame();
+        }
+
+        if(target.tag == "CubeVisible"){
+
+            GetComponent<SpriteRenderer>().color = new Color (255, 255, 255, 255);
+
+        }
+
+        if(target.tag == "CubeInvisible"){
+
+            GetComponent<SpriteRenderer>().color = new Color (255, 255, 255, 0);
+
+        }
+
     }
     
+
+    public void MovePlayerUp(){
+        transform.position = new Vector2(0f, 1000f);
+    }
+
 }

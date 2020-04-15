@@ -23,8 +23,7 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetAxisRaw("Horizontal") > 0f){
             myBody.velocity = new Vector2 (moveSpeed, myBody.velocity.y);
         }
-
-        Debug.Log(Input.GetAxisRaw("Horizontal"));
+        
 
         if(Input.GetAxisRaw("Horizontal") < 0f){
             myBody.velocity = new Vector2 (-moveSpeed, myBody.velocity.y);

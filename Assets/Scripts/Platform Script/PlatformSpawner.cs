@@ -8,13 +8,20 @@ public class PlatformSpawner : MonoBehaviour
     public GameObject spikePlatform;
     public GameObject[] movingPlatform;
     public GameObject breakablePlatform;
+
+    public GameObject player;
+
+    public GameObject heart;
     
     public float platform_Spawn_Initial_Timer = 1f;
     public float current_Platform_Spawn_Timer;
     public int platform_Count = 0;
     public float min_X = -2f, max_X = 2f; 
 
+    public float current_Heart_Spawn_Timer = 0;
+
     void Start(){
+
         current_Platform_Spawn_Timer = platform_Spawn_Initial_Timer;
     }
 
@@ -24,7 +31,11 @@ public class PlatformSpawner : MonoBehaviour
 
     void SpawnerPlatform(){
 
+        current_Heart_Spawn_Timer += Time.deltaTime;
+
         current_Platform_Spawn_Timer += Time.deltaTime;
+
+        Vector3 posisiPlayer = player.transform.position;
 
         if(current_Platform_Spawn_Timer >= platform_Spawn_Initial_Timer){
 
@@ -39,6 +50,26 @@ public class PlatformSpawner : MonoBehaviour
             if (platform_Count < 2 ){
                
                 newPlatform = Instantiate(standartPlatform, temp, Quaternion.identity);
+
+                if(posisiPlayer.y > 5f){
+
+                    posisiPlayer = temp;
+
+                    posisiPlayer.y += 0.5f;
+
+                    player.transform.position = posisiPlayer;
+                }
+
+                else if (current_Heart_Spawn_Timer > 10f){
+
+                    Vector3 posisiHeart = temp;
+
+                    posisiHeart.y += 0.5f;
+
+                    newPlatform = Instantiate(heart, posisiHeart, Quaternion.identity);
+
+                    current_Heart_Spawn_Timer = 0f;
+                }
             
             } else if(platform_Count == 2){
 
@@ -46,6 +77,15 @@ public class PlatformSpawner : MonoBehaviour
 
                     newPlatform = Instantiate(standartPlatform, temp, Quaternion.identity);
                 
+                    if(posisiPlayer.y > 5f){
+
+                        posisiPlayer = temp;
+
+                        posisiPlayer.y += 0.5f;
+
+                        player.transform.position = posisiPlayer;
+                    }
+
                 } else {
                     
                     newPlatform = Instantiate(movingPlatform[Random.Range(0, movingPlatform.Length)],temp, Quaternion.identity );
@@ -59,6 +99,15 @@ public class PlatformSpawner : MonoBehaviour
 
                     newPlatform = Instantiate(standartPlatform, temp, Quaternion.identity);
 
+                    if(posisiPlayer.y > 5f){
+
+                        posisiPlayer = temp;
+
+                        posisiPlayer.y += 0.5f;
+
+                        player.transform.position = posisiPlayer;
+                    }
+
                 } else {
 
                     newPlatform = Instantiate(spikePlatform, temp, Quaternion.identity);
@@ -70,6 +119,15 @@ public class PlatformSpawner : MonoBehaviour
 
                     newPlatform = Instantiate(standartPlatform, temp, Quaternion.identity);
                 
+                    if(posisiPlayer.y > 5f){
+
+                        posisiPlayer = temp;
+
+                        posisiPlayer.y += 0.5f;
+
+                        player.transform.position = posisiPlayer;
+                    }
+
                 } else {
 
                     newPlatform = Instantiate (breakablePlatform, temp, Quaternion.identity);
@@ -89,5 +147,8 @@ public class PlatformSpawner : MonoBehaviour
             current_Platform_Spawn_Timer = 0f;
 
         }
+    
+
     } //void spawn platform
+
 }
